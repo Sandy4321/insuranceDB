@@ -29,12 +29,14 @@ DB FIELD
 -receiptPic
 
 
-Coded by Martin Verret(verret.martin@gmail.com)
+Coded by Martin Verret
+https://github.com/arist0v/insuranceDB
 
 """
 
 #import needed library
 import Tkinter as tk
+from Languages import language_frCA as text
 
 class insuranceDB():
 	"""
@@ -45,8 +47,52 @@ class insuranceDB():
 	def __init__(self):
 		window = tk.Tk()
 		window.geometry("800x600")#START RES
-		window.wm_title("insuranceDB " + self.version)#MAYBE ADD FRENCH NOR ENGLISH TITLE WITH VAR
+		window.wm_title(text.mainText.program + " " + self.version)#MAYBE ADD FRENCH NOR ENGLISH TITLE WITH VAR
+		self.mainPage(window)
 		window.mainloop()
+
+	def mainPage(self, window):
+		'''
+		function to provide the main windows for the software
+		'''
+		self.clearWindow(window)#reset main Window
+		
+		mainFrame = tk.Frame(window)#create main frame
+		
+		'''
+		creating Menu Bar
+		'''
+		menubar = tk.Menu(mainFrame)#create the menu bar
+
+		filemenu = tk.Menu(menubar, tearoff=0)#create the file menu
+
+		'''
+		add file menu entry!!!
+		'''
+		
+		filemenu.add_command(label="Quitter", command = lambda: self.exit(window))
+
+		menubar.add_cascade(label="Fichier", menu=filemenu)#apply the file menu
+		
+		window.config(menu=menubar)
+	
+	def clearWindow(self, window):
+		"""
+		Function to clear the window content 
+		"""
+		try:
+	                for children in window.winfo_children():
+	                        children.destroy()#try to destroy window children(if exist):
+		except:
+			pass		
+
+	def exit(self, window):
+		'''
+		function to quit the program
+		'''
+
+		window.quit()
+
 #START THE PROGRAM
 if __name__ == '__main__':
 	insuranceDB()
