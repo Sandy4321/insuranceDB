@@ -19,14 +19,15 @@ Function
 -rename picture with itemNumber .ext in separate folder (picture/receipt)
 
 DB FIELD
--ID(unique/KEY)
--itemID(unique)
--itemName
--Description
+-ID(unique/KEY, Auto Incriment, NOT NULL)
+-itemID(unique), autoIncrement NOT NULL)
+-itemNamei(NOT NULL)
+-Description(NOT NULL)
 -Model Number
 -Serial
 -pictureName
 -receiptPic
+-lastEdited(NOT NULL)#AUTO ON TODAY DATE OF SAVING
 
 
 Coded by Martin Verret
@@ -35,8 +36,10 @@ https://github.com/arist0v/insuranceDB
 """
 
 #import needed library
-import Tkinter as tk
-from Languages import language_frCA as text
+import Tkinter as tk#import tkinter library
+from Languages import language_frCA as text#import the home library for the language
+import tkFileDialog as tkf#import the file dialog widget for tkinter
+import sqlite3
 
 class insuranceDB():
 	"""
@@ -70,10 +73,11 @@ class insuranceDB():
 		add file menu entry!!!
 		'''
 		
-		filemenu.add_command(label="Quitter", command = lambda: self.exit(window))
-
-		menubar.add_cascade(label="Fichier", menu=filemenu)#apply the file menu
-		
+		filemenu.add_command(label=text.menuText.newDB, command = lambda: self.createNewTable("test.db"))
+		filemenu.add_command(label=text.menuText.fileQuit, command = lambda: self.exit(window))
+				
+		menubar.add_cascade(label=text.menuText.fileMenu, menu=filemenu)#apply the file menu
+			
 		window.config(menu=menubar)
 	
 	def clearWindow(self, window):
@@ -92,7 +96,18 @@ class insuranceDB():
 		'''
 
 		window.quit()
+	
+	def createNewTable(self, fileName):
 
+		'''
+		function to create a new DB.
+		'''
+		conn = sqlite3.connect(fileName)
+		sqlRequest = "CREATE TABLE items(ID INTEGER NOT NULL UNIQUE PRIMARY KEY,itemID INTEGER NOT NULL UNIQUE,itemName VARCHAR(255) NOT NULL,description VARCHAR(255),modelNumber VARCHAR(255),serialNumber VARCHAR(255),pictureFile VARCHAR(255),receiptFile VARCHAR(255),lastEdited SMALLDATE NOT NULL)"
+		conn.execute(sqlRequest)
+		conn.close()
+		
+		
 #START THE PROGRAM
 if __name__ == '__main__':
 	insuranceDB()

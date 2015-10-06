@@ -27,5 +27,7 @@ class menuSoftwareText:
 
 	def __init__(self):
 		self.fileMenu = "Fichier"
+		self.fileQuit = "Quitter"
+		self.newDB = "Nouvelle Liste"
 
 menuText = menuSoftwareText()
