@@ -103,7 +103,7 @@ class insuranceDB():
 		function to create a new DB.
 		'''
 		conn = sqlite3.connect(fileName)
-		sqlRequest = "CREATE TABLE items(ID INTEGER NOT NULL UNIQUE PRIMARY KEY,itemID INTEGER NOT NULL UNIQUE,itemName VARCHAR(255) NOT NULL,description VARCHAR(255),modelNumber VARCHAR(255),serialNumber VARCHAR(255),pictureFile VARCHAR(255),receiptFile VARCHAR(255),lastEdited SMALLDATE NOT NULL)"
+		sqlRequest = "CREATE TABLE items(ID INTEGER NOT NULL UNIQUE PRIMARY KEY,itemID INTEGER NOT NULL UNIQUE,itemName VARCHAR(255) NOT NULL,description VARCHAR(255),modelNumber VARCHAR(255),serialNumber VARCHAR(255),itemValue INTEGER NOT NULL,pictureFile VARCHAR(255),receiptFile VARCHAR(255),lastEdited SMALLDATE NOT NULL)"
 		conn.execute(sqlRequest)
 		conn.close()
 		
