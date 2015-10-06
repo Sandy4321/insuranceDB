@@ -73,7 +73,7 @@ class insuranceDB():
 		add file menu entry!!!
 		'''
 		
-		filemenu.add_command(label=text.menuText.newDB, command = lambda: self.createNewTable("test.db"))
+		filemenu.add_command(label=text.menuText.newDB, command = lambda: self.createNewTable(tkf.asksaveasfilename(defaultextension=".idb", filetypes=(("InsuranceDB files", "*.idb"),("ALL FILES", "*.*")))))
 		filemenu.add_command(label=text.menuText.fileQuit, command = lambda: self.exit(window))
 				
 		menubar.add_cascade(label=text.menuText.fileMenu, menu=filemenu)#apply the file menu
