@@ -29,5 +29,15 @@ class menuSoftwareText:
 		self.fileMenu = "Fichier"
 		self.fileQuit = "Quitter"
 		self.newDB = "Nouvelle Liste"
-
+		self.openDB = "Ouvrir Liste"
 menuText = menuSoftwareText()
+
+class softErrorMessage:
+	'''
+	text for all error message
+	'''
+	def __init__(self):
+		self.windowTitle = "Erreur"
+		self.errorOpenDB = "Échec de l'ouverture du fichier!"
+
+errorMessage = softErrorMessage()	

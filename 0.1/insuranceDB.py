@@ -39,7 +39,8 @@ https://github.com/arist0v/insuranceDB
 import Tkinter as tk#import tkinter library
 from Languages import language_frCA as text#import the home library for the language
 import tkFileDialog as tkf#import the file dialog widget for tkinter
-import sqlite3
+import sqlite3#import the sqlite library to work with database file
+import tkMessageBox as tkm#import message box library for tkinter
 
 class insuranceDB():
 	"""
@@ -47,6 +48,8 @@ class insuranceDB():
 	your insurance company to help you list your goods in case of disaster
 	"""
 	version = "0.1"
+
+	conn = "" #empty var to stock sqlite3 connection
 	def __init__(self):
 		window = tk.Tk()
 		window.geometry("800x600")#START RES
@@ -73,7 +76,8 @@ class insuranceDB():
 		add file menu entry!!!
 		'''
 		
-		filemenu.add_command(label=text.menuText.newDB, command = lambda: self.createNewTable(tkf.asksaveasfilename(defaultextension=".idb", filetypes=(("InsuranceDB files", "*.idb"),("ALL FILES", "*.*")))))
+		filemenu.add_command(label=text.menuText.newDB, command = lambda: self.createNewTable(tkf.asksaveasfilename(defaultextension=".idb", filetypes=(("InsuranceDB files", "*.idb"),("ALL FILES", "*.*"))), window))
+		filemenu.add_command(label=text.menuText.openDB, command = lambda: self.openTable(tkf.askopenfilename(defaultextension=".idb", filetypes=(("InsuranceDB Files", "*.idb"),("ALL FILES", "*.*"))), window))
 		filemenu.add_command(label=text.menuText.fileQuit, command = lambda: self.exit(window))
 				
 		menubar.add_cascade(label=text.menuText.fileMenu, menu=filemenu)#apply the file menu
@@ -94,19 +98,33 @@ class insuranceDB():
 		'''
 		function to quit the program
 		'''
-
+		try:
+			self.conn.close()
+		except:
+			pass
 		window.quit()
 	
-	def createNewTable(self, fileName):
+	def createNewTable(self, fileName, window):
 
 		'''
 		function to create a new DB.
 		'''
-		conn = sqlite3.connect(fileName)
+		self.conn = sqlite3.connect(fileName)
 		sqlRequest = "CREATE TABLE items(ID INTEGER NOT NULL UNIQUE PRIMARY KEY,itemID INTEGER NOT NULL UNIQUE,itemName VARCHAR(255) NOT NULL,description VARCHAR(255),modelNumber VARCHAR(255),serialNumber VARCHAR(255),itemValue INTEGER NOT NULL,pictureFile VARCHAR(255),receiptFile VARCHAR(255),lastEdited SMALLDATE NOT NULL)"
-		conn.execute(sqlRequest)
-		conn.close()
+		self.conn.execute(sqlRequest)
 		
+	def openTable(self, fileName, window):
+
+		'''
+		function to open an existing DB
+		'''
+		
+		try:
+			self.conn=sqlite3.connect(fileName)
+		except:
+			tkm.showerror(text.errorMessage.windowTitle, text.errorMessage.errorOpenDB)
+			exit(window)
+
 		
 #START THE PROGRAM
 if __name__ == '__main__':
