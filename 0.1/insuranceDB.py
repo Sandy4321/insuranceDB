@@ -92,8 +92,11 @@ class insuranceDB():
 		'''
 		add help menu entry
 		'''
-		#empty for now	
-			
+		
+		helpMenu.add_command(label=text.menuText.licence, command=lambda: self.showLicence(window))	
+				
+
+	
 		menubar.add_cascade(label=text.menuText.fileMenu, menu=filemenu)#apply the file menu
 
 		menubar.add_cascade(label=text.menuText.itemsMenu, menu=itemsMenu)#apply items menu		
@@ -145,7 +148,28 @@ class insuranceDB():
 			tkm.showerror(text.errorMessage.windowTitle, text.errorMessage.errorOpenDB)
 			exit(window)
 
-		
+	def showLicence(self, window):
+		'''
+		function to show the licence to user
+		'''
+		licence = tk.Toplevel(window)
+		licence.title(text.licence.title)
+
+		scroll = tk.Scrollbar(licence)
+		scroll.pack(side="right", fill="y")
+
+		licenceText = tk.Text(licence, yscrollcommand=scroll.set, bg="white")
+
+		licenceContent = open("LICENSE.md")
+
+		licenceText.insert("insert", licenceContent.read())
+
+		licenceText.configure(state="disabled")
+
+		scroll.configure(command = licenceText.yview)
+
+		licenceText.pack()
+			
 #START THE PROGRAM
 if __name__ == '__main__':
 	insuranceDB()

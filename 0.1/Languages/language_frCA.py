@@ -32,7 +32,8 @@ class menuSoftwareText:
 		self.openDB = "Ouvrir Liste"
 		self.itemsMenu = "Items"
 		self.helpMenu = "?"
-		
+		self.licence= "License"
+			
 menuText = menuSoftwareText()
 
 class softErrorMessage:
@@ -43,4 +44,11 @@ class softErrorMessage:
 		self.windowTitle = "Erreur"
 		self.errorOpenDB = "Échec de l'ouverture du fichier!"
 
-errorMessage = softErrorMessage()	
+errorMessage = softErrorMessage()
+
+class textLicence:
+
+	def __init__(self):
+		self.title="License GNU/GPL V3.0 "
+
+licence = textLicence()
