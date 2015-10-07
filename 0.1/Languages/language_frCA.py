@@ -30,6 +30,9 @@ class menuSoftwareText:
 		self.fileQuit = "Quitter"
 		self.newDB = "Nouvelle Liste"
 		self.openDB = "Ouvrir Liste"
+		self.itemsMenu = "Items"
+		self.helpMenu = "?"
+		
 menuText = menuSoftwareText()
 
 class softErrorMessage:

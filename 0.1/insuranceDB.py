@@ -5,16 +5,15 @@
 Software to build a DB for insurance Company 
 
 TODO:
--ALL
 
 Function
--Write/Read db from a file
+#-Write/Read db from a file
 -Add data in DB
 -edit data
 -delete Data
 -export in PDF + .jpg folder into a ZIP
 -put color in red for item no update in 1 year
--open different DB
+#-open different DB
 -show total value for all item
 -rename picture with itemNumber .ext in separate folder (picture/receipt)
 
@@ -28,7 +27,7 @@ DB FIELD
 -pictureName
 -receiptPic
 -lastEdited(NOT NULL)#AUTO ON TODAY DATE OF SAVING
-
+-Value
 
 Coded by Martin Verret
 https://github.com/arist0v/insuranceDB
@@ -71,6 +70,10 @@ class insuranceDB():
 		menubar = tk.Menu(mainFrame)#create the menu bar
 
 		filemenu = tk.Menu(menubar, tearoff=0)#create the file menu
+		
+		itemsMenu = tk.Menu(menubar, tearoff=0)#create the items menu
+
+		helpMenu = tk.Menu(menubar, tearoff=0)#create help menu
 
 		'''
 		add file menu entry!!!
@@ -79,9 +82,24 @@ class insuranceDB():
 		filemenu.add_command(label=text.menuText.newDB, command = lambda: self.createNewTable(tkf.asksaveasfilename(defaultextension=".idb", filetypes=(("InsuranceDB files", "*.idb"),("ALL FILES", "*.*"))), window))
 		filemenu.add_command(label=text.menuText.openDB, command = lambda: self.openTable(tkf.askopenfilename(defaultextension=".idb", filetypes=(("InsuranceDB Files", "*.idb"),("ALL FILES", "*.*"))), window))
 		filemenu.add_command(label=text.menuText.fileQuit, command = lambda: self.exit(window))
-				
-		menubar.add_cascade(label=text.menuText.fileMenu, menu=filemenu)#apply the file menu
+		
+		'''
+		add items menu entry
+		'''
+
+		#empty for now
+
+		'''
+		add help menu entry
+		'''
+		#empty for now	
 			
+		menubar.add_cascade(label=text.menuText.fileMenu, menu=filemenu)#apply the file menu
+
+		menubar.add_cascade(label=text.menuText.itemsMenu, menu=itemsMenu)#apply items menu		
+	
+		menubar.add_cascade(label=text.menuText.helpMenu, menu=helpMenu)#Apply the help menu
+
 		window.config(menu=menubar)
 	
 	def clearWindow(self, window):
@@ -98,10 +116,12 @@ class insuranceDB():
 		'''
 		function to quit the program
 		'''
+		
 		try:
-			self.conn.close()
+			print self.conn.close()
 		except:
 			pass
+
 		window.quit()
 	
 	def createNewTable(self, fileName, window):
