@@ -30,7 +30,6 @@ DB FIELD
 -Value
 
 Coded by Martin Verret
-and maybe Jonathan Bédard
 https://github.com/arist0v/insuranceDB
 
 """
